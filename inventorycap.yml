@@ -1,0 +1,11 @@
+[win]
+10.169.33.25
+
+[win:vars]
+ansible_ssh_user=svc_content_pub
+ansible_password=4rj8Kb55z729@3V
+ansible_ssh_port=5985
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_scheme=http
+ansible_winrm_transport=ntlm

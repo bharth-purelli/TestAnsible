@@ -1,0 +1,27 @@
+---
+- name: demo on cap servers
+  hosts: win
+  tasks:
+    - name: check service status
+      win_service:
+        name: w3logsvc
+      register: result
+
+      ignore_errors: yes
+
+    - debug: msg="{{result}}"
+
+    - meta: end_play
+      when: result.state == 'stopped'
+
+    - name: stop iss when running
+      win_service:
+        name: w3logsvc
+        state: stopped
+        when: result.state == 'running'
+
+    - name: test1
+      win_service:
+        name: W3SVC
+        state: stopped
+        when: result.state == 'running'
