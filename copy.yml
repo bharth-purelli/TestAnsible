@@ -1,0 +1,33 @@
+---
+- name: copy files
+  hosts: win
+  become: yes
+  tasks:
+    - win_copy:
+        src: /tmp/TemplateFacade.war
+        dest: C:\sample\
+        remote_src: False
+      register: result
+      notify:
+        - stop_w3logsvc
+        - stop_w3svc
+
+    - debug: msg="{{result}}"
+
+    - meta: end_play
+      when: result.changed == 'false'
+
+  handlers:
+    - name: stop_w3logsvc
+
+      win_service:
+        name: w3logsvc
+        state: stopped
+
+    - name: stop_w3svc
+
+      win_service:
+        name: W3SVC
+        state: stopped
+
+

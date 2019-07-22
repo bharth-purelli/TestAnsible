@@ -1,0 +1,14 @@
+---
+- name: test download and copy
+  hosts: localhost
+  tasks:
+    - maven_artifact:
+        group_id: incrowd
+        artifact_id: TemplateFacade
+        version: 1.33-SNAPSHOT
+        repository_url: "http://spartifactory.mhf.mhc/artifactory/sandp/com/sandp/"
+        extension: war
+        dest: /tmp/TemplateFacade.war
+
+- name: Include a play after another play
+  import_playbook: copy.yml
